@@ -15,6 +15,11 @@
 		C6A04B472FA20A80001E941D /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B462FA20A80001E941D /* UserDefaultsManager.swift */; };
 		C6A04B492FA20A80001E941D /* ExchangeRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B482FA20A80001E941D /* ExchangeRateService.swift */; };
 		C6A04B4B2FA20A80001E941D /* ConverterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B4A2FA20A80001E941D /* ConverterViewModel.swift */; };
+		C6A04B4D2FA20A80001E941D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B4C2FA20A80001E941D /* MainView.swift */; };
+		C6A04B4F2FA20A80001E941D /* ResultDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B4E2FA20A80001E941D /* ResultDisplayView.swift */; };
+		C6A04B512FA20A80001E941D /* CustomKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B502FA20A80001E941D /* CustomKeyboardView.swift */; };
+		C6A04B532FA20A80001E941D /* FunctionButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B522FA20A80001E941D /* FunctionButtonsView.swift */; };
+		C6A04B552FA20A80001E941D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B542FA20A80001E941D /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +51,11 @@
 		C6A04B462FA20A80001E941D /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		C6A04B482FA20A80001E941D /* ExchangeRateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateService.swift; sourceTree = "<group>"; };
 		C6A04B4A2FA20A80001E941D /* ConverterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterViewModel.swift; sourceTree = "<group>"; };
+		C6A04B4C2FA20A80001E941D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		C6A04B4E2FA20A80001E941D /* ResultDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultDisplayView.swift; sourceTree = "<group>"; };
+		C6A04B502FA20A80001E941D /* CustomKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomKeyboardView.swift; sourceTree = "<group>"; };
+		C6A04B522FA20A80001E941D /* FunctionButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionButtonsView.swift; sourceTree = "<group>"; };
+		C6A04B542FA20A80001E941D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -147,6 +157,11 @@
 			isa = PBXGroup;
 			children = (
 				C6A04B152FA20A0B001E941D /* ContentView.swift */,
+				C6A04B4C2FA20A80001E941D /* MainView.swift */,
+				C6A04B4E2FA20A80001E941D /* ResultDisplayView.swift */,
+				C6A04B502FA20A80001E941D /* CustomKeyboardView.swift */,
+				C6A04B522FA20A80001E941D /* FunctionButtonsView.swift */,
+				C6A04B542FA20A80001E941D /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -319,6 +334,11 @@
 				C6A04B472FA20A80001E941D /* UserDefaultsManager.swift in Sources */,
 				C6A04B492FA20A80001E941D /* ExchangeRateService.swift in Sources */,
 				C6A04B4B2FA20A80001E941D /* ConverterViewModel.swift in Sources */,
+				C6A04B4D2FA20A80001E941D /* MainView.swift in Sources */,
+				C6A04B4F2FA20A80001E941D /* ResultDisplayView.swift in Sources */,
+				C6A04B512FA20A80001E941D /* CustomKeyboardView.swift in Sources */,
+				C6A04B532FA20A80001E941D /* FunctionButtonsView.swift in Sources */,
+				C6A04B552FA20A80001E941D /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
