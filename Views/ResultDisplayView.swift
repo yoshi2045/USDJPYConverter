@@ -9,6 +9,7 @@ struct ResultDisplayView: View {
             usdSection
             separator
             jpySection
+            rateRow
             Spacer()
         }
         .padding(.horizontal, 20)
@@ -41,6 +42,14 @@ struct ResultDisplayView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.top, 16)
+    }
+
+    private var rateRow: some View {
+        Text(vm.rateLabel)
+            .font(.caption2)
+            .foregroundStyle(Color(white: 0.3))
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            .padding(.top, 12)
     }
 
     // MARK: - Helpers

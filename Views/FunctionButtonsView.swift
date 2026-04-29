@@ -7,7 +7,7 @@ struct FunctionButtonsView: View {
     var body: some View {
         HStack(spacing: 0) {
             funcButton(icon: "doc.on.clipboard", label: "ペースト") {
-                // Phase 3: clipboard paste implementation
+                vm.pasteFromClipboard()
             }
             funcButton(icon: "mic", label: "音声") {
                 // dummy — not implemented

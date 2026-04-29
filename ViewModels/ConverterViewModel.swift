@@ -1,13 +1,18 @@
 import Foundation
+import UIKit
 
 @Observable
 final class ConverterViewModel {
     var inputState = InputState()
     var exchangeRate: Double = ExchangeRate.fallbackRate
+    var isLoading = true
+    private(set) var rateFetchedAt: Date? = nil
 
     init() {
         Task {
             exchangeRate = await ExchangeRateService.shared.fetchRateIfNeeded()
+            rateFetchedAt = UserDefaultsManager.shared.loadExchangeRate()?.fetchedAt
+            isLoading = false
         }
     }
 
@@ -49,22 +54,29 @@ final class ConverterViewModel {
         inputState.unit = (inputState.unit == unit) ? nil : unit
     }
 
+    // MARK: - Paste from clipboard
+
+    func pasteFromClipboard() {
+        guard let text = UIPasteboard.general.string else { return }
+        guard let (number, unit) = Self.parsePastedText(text) else { return }
+        inputState.rawNumber = number
+        inputState.unit = unit
+    }
+
     // MARK: - Conversion results (5 display patterns)
 
-    /// Pattern 1: 数字のみ、通貨は円
-    var result1: String { formatJPYPlain(jpyValue) }
+    var result1: String { inputState.isEmpty ? "---" : formatJPYPlain(jpyValue) }
+    var result2: String { inputState.isEmpty ? "---" : formatJPYWithUnit(jpyValue) }
+    var result3: String { inputState.isEmpty ? "---" : formatUSDPlain(usdValue) }
+    var result4: String { inputState.isEmpty ? "---" : formatUSDWithUSUnit(usdValue) }
+    var result5: String { inputState.isEmpty ? "---" : formatUSDWithJPUnit(usdValue) }
 
-    /// Pattern 2: 日本単位、通貨は円
-    var result2: String { formatJPYWithUnit(jpyValue) }
-
-    /// Pattern 3: 数字のみ、通貨はドル
-    var result3: String { formatUSDPlain(usdValue) }
-
-    /// Pattern 4: 米国単位、通貨はドル
-    var result4: String { formatUSDWithUSUnit(usdValue) }
-
-    /// Pattern 5: 日本単位、通貨はドル
-    var result5: String { formatUSDWithJPUnit(usdValue) }
+    var rateLabel: String {
+        if isLoading { return "レート取得中…" }
+        let rate = String(format: "%.2f", exchangeRate)
+        let suffix = rateFetchedAt == nil ? " ※推定値" : ""
+        return "1 USD ≈ ¥\(rate)\(suffix)"
+    }
 
     // MARK: - Private
 
@@ -82,6 +94,65 @@ final class ConverterViewModel {
     private func isOverMax(_ raw: String) -> Bool {
         let intPart = raw.split(separator: ".").first.map(String.init) ?? raw
         return (Int(intPart) ?? 0) > 9999
+    }
+
+    // MARK: - Paste parsing
+
+    static func parsePastedText(_ text: String) -> (String, UnitType?)? {
+        var s = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        s = s.filter { !"$¥￥ ".contains($0) }
+        s = s.replacingOccurrences(of: ",", with: "")
+        guard !s.isEmpty else { return nil }
+
+        let unitMap: [(String, UnitType)] = [
+            ("京", .kei), ("兆", .cho), ("億", .oku), ("万", .man), ("千", .sen),
+            ("Q", .Q), ("T", .T), ("B", .B), ("M", .M), ("K", .K)
+        ]
+        var detectedUnit: UnitType? = nil
+        for (suffix, unitType) in unitMap {
+            if s.uppercased().hasSuffix(suffix.uppercased()) {
+                s = String(s.dropLast(suffix.count))
+                detectedUnit = unitType
+                break
+            }
+        }
+
+        guard !s.isEmpty, let value = Decimal(string: s) else { return nil }
+
+        let intPart = s.split(separator: ".").first.map(String.init) ?? s
+        if (Int(intPart) ?? 0) <= 9999 {
+            return (s, detectedUnit)
+        }
+        // Integer part exceeds max — auto-scale to nearest US unit (only when no explicit suffix)
+        if detectedUnit == nil, let (scaled, unit) = autoScale(value) {
+            return (scaled, unit)
+        }
+        return nil
+    }
+
+    private static func autoScale(_ value: Decimal) -> (String, UnitType)? {
+        let scales: [(Decimal, UnitType)] = [
+            (Decimal(string: "1000000000000000")!, .Q),
+            (Decimal(string: "1000000000000")!, .T),
+            (Decimal(1_000_000_000), .B),
+            (Decimal(1_000_000), .M),
+            (Decimal(1_000), .K),
+        ]
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 4
+        formatter.minimumFractionDigits = 0
+        formatter.usesGroupingSeparator = false
+
+        for (threshold, unit) in scales {
+            if value >= threshold {
+                let scaled = value / threshold
+                guard let str = formatter.string(from: scaled as NSDecimalNumber) else { continue }
+                let intPart = str.split(separator: ".").first.map(String.init) ?? str
+                if (Int(intPart) ?? 0) <= 9999 { return (str, unit) }
+            }
+        }
+        return nil
     }
 
     // MARK: - Formatters
