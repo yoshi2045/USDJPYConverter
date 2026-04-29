@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		C6A04B142FA20A0B001E941D /* USDJPYConverterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B132FA20A0B001E941D /* USDJPYConverterApp.swift */; };
 		C6A04B162FA20A0B001E941D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B152FA20A0B001E941D /* ContentView.swift */; };
+		C6A04B412FA20A80001E941D /* UnitType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B402FA20A80001E941D /* UnitType.swift */; };
+		C6A04B432FA20A80001E941D /* InputState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B422FA20A80001E941D /* InputState.swift */; };
+		C6A04B452FA20A80001E941D /* ExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B442FA20A80001E941D /* ExchangeRate.swift */; };
+		C6A04B472FA20A80001E941D /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B462FA20A80001E941D /* UserDefaultsManager.swift */; };
+		C6A04B492FA20A80001E941D /* ExchangeRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B482FA20A80001E941D /* ExchangeRateService.swift */; };
+		C6A04B4B2FA20A80001E941D /* ConverterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A04B4A2FA20A80001E941D /* ConverterViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +40,12 @@
 		C6A04B152FA20A0B001E941D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C6A04B1D2FA20A0C001E941D /* USDJPYConverterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = USDJPYConverterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6A04B272FA20A0C001E941D /* USDJPYConverterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = USDJPYConverterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6A04B402FA20A80001E941D /* UnitType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitType.swift; sourceTree = "<group>"; };
+		C6A04B422FA20A80001E941D /* InputState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputState.swift; sourceTree = "<group>"; };
+		C6A04B442FA20A80001E941D /* ExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRate.swift; sourceTree = "<group>"; };
+		C6A04B462FA20A80001E941D /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		C6A04B482FA20A80001E941D /* ExchangeRateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateService.swift; sourceTree = "<group>"; };
+		C6A04B4A2FA20A80001E941D /* ConverterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -116,6 +128,9 @@
 		C6A04B3B2FA20A5E001E941D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C6A04B402FA20A80001E941D /* UnitType.swift */,
+				C6A04B422FA20A80001E941D /* InputState.swift */,
+				C6A04B442FA20A80001E941D /* ExchangeRate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -123,6 +138,7 @@
 		C6A04B3C2FA20A66001E941D /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				C6A04B4A2FA20A80001E941D /* ConverterViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -138,6 +154,7 @@
 		C6A04B3E2FA20A75001E941D /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				C6A04B482FA20A80001E941D /* ExchangeRateService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -145,6 +162,7 @@
 		C6A04B3F2FA20A7B001E941D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C6A04B462FA20A80001E941D /* UserDefaultsManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -295,6 +313,12 @@
 			files = (
 				C6A04B162FA20A0B001E941D /* ContentView.swift in Sources */,
 				C6A04B142FA20A0B001E941D /* USDJPYConverterApp.swift in Sources */,
+				C6A04B412FA20A80001E941D /* UnitType.swift in Sources */,
+				C6A04B432FA20A80001E941D /* InputState.swift in Sources */,
+				C6A04B452FA20A80001E941D /* ExchangeRate.swift in Sources */,
+				C6A04B472FA20A80001E941D /* UserDefaultsManager.swift in Sources */,
+				C6A04B492FA20A80001E941D /* ExchangeRateService.swift in Sources */,
+				C6A04B4B2FA20A80001E941D /* ConverterViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,7 +485,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -493,7 +517,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
