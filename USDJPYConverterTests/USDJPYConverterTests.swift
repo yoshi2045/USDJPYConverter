@@ -1,4 +1,5 @@
 import Testing
+import Foundation
 @testable import USDJPYConverter
 
 // MARK: - UnitType tests
@@ -173,5 +174,113 @@ struct ConverterViewModelConversionTests {
         let vm = ConverterViewModel()
         // default exchangeRate = 150
         #expect(vm.exchangeRate == ExchangeRate.fallbackRate)
+    }
+
+    @Test func emptyInputShowsPlaceholder() {
+        let vm = ConverterViewModel()
+        // Initial state: rawNumber == "0" → all results show "---"
+        #expect(vm.result1 == "---")
+        #expect(vm.result3 == "---")
+    }
+
+    @Test func nonZeroInputShowsValue() {
+        let vm = ConverterViewModel()
+        vm.exchangeRate = 150.0
+        vm.appendDigit("1")
+        #expect(vm.result3 != "---")
+        #expect(vm.result1 != "---")
+    }
+}
+
+// MARK: - Paste parsing tests
+
+struct PasteParsingTests {
+    @Test func plainNumber() throws {
+        let result = try #require(ConverterViewModel.parsePastedText("1234"))
+        #expect(result.0 == "1234")
+        #expect(result.1 == nil)
+    }
+
+    @Test func numberWithCommas() throws {
+        let result = try #require(ConverterViewModel.parsePastedText("1,234"))
+        #expect(result.0 == "1234")
+        #expect(result.1 == nil)
+    }
+
+    @Test func dollarSignStripped() throws {
+        let result = try #require(ConverterViewModel.parsePastedText("$1234"))
+        #expect(result.0 == "1234")
+    }
+
+    @Test func yenSignStripped() throws {
+        let result = try #require(ConverterViewModel.parsePastedText("¥1234"))
+        #expect(result.0 == "1234")
+    }
+
+    @Test func usSuffixUppercase() throws {
+        let result = try #require(ConverterViewModel.parsePastedText("1.5M"))
+        #expect(result.0 == "1.5")
+        #expect(result.1 == .M)
+    }
+
+    @Test func usSuffixLowercase() throws {
+        let result = try #require(ConverterViewModel.parsePastedText("1.5m"))
+        #expect(result.0 == "1.5")
+        #expect(result.1 == .M)
+    }
+
+    @Test func jpSuffixMan() throws {
+        let result = try #require(ConverterViewModel.parsePastedText("100万"))
+        #expect(result.0 == "100")
+        #expect(result.1 == .man)
+    }
+
+    @Test func jpSuffixOku() throws {
+        let result = try #require(ConverterViewModel.parsePastedText("2.5億"))
+        #expect(result.0 == "2.5")
+        #expect(result.1 == .oku)
+    }
+
+    @Test func dollarWithSuffix() throws {
+        let result = try #require(ConverterViewModel.parsePastedText("$2.5B"))
+        #expect(result.0 == "2.5")
+        #expect(result.1 == .B)
+    }
+
+    @Test func autoScaleThousands() throws {
+        let result = try #require(ConverterViewModel.parsePastedText("10000"))
+        #expect(result.0 == "10")
+        #expect(result.1 == .K)
+    }
+
+    @Test func autoScaleMillions() throws {
+        let result = try #require(ConverterViewModel.parsePastedText("1000000"))
+        #expect(result.0 == "1")
+        #expect(result.1 == .M)
+    }
+
+    @Test func autoScaleWithCommas() throws {
+        let result = try #require(ConverterViewModel.parsePastedText("1,000,000"))
+        #expect(result.0 == "1")
+        #expect(result.1 == .M)
+    }
+
+    @Test func invalidTextReturnsNil() {
+        #expect(ConverterViewModel.parsePastedText("abc") == nil)
+    }
+
+    @Test func emptyStringReturnsNil() {
+        #expect(ConverterViewModel.parsePastedText("") == nil)
+    }
+
+    @Test func whitespaceOnlyReturnsNil() {
+        #expect(ConverterViewModel.parsePastedText("   ") == nil)
+    }
+
+    @Test func maxBoundary() throws {
+        // 9999 is valid without scaling
+        let result = try #require(ConverterViewModel.parsePastedText("9999"))
+        #expect(result.0 == "9999")
+        #expect(result.1 == nil)
     }
 }
